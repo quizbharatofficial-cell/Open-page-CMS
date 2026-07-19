@@ -54,3 +54,32 @@ async function publishPost() {
     document.getElementById("postTitle").value = "";
     document.getElementById("postContent").value = "";
 }
+async function loadAdminPosts() {
+  const { data, error } = await db
+    .from("posts")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  const postList = document.getElementById("postList");
+
+  if (!data || data.length === 0) {
+    postList.innerHTML = "No Posts";
+    return;
+  }
+
+  postList.innerHTML = "";
+
+  data.forEach(post => {
+    postList.innerHTML += `
+      <div class="card">
+        <h3>${post.title}</h3>
+        <p>${post.content}</p>
+      </div>
+    `;
+  });
+}
