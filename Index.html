@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenPage CMS</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="logo">
+        OpenPage
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search posts...">
+    </div>
+
+</header>
+
+<section class="cover">
+
+    <img src="assets/cover.jpg" class="cover-img">
+
+</section>
+
+<section class="profile">
+
+    <img src="assets/logo.png" class="profile-img">
+
+    <div class="page-info">
+
+        <h1 id="pageName">
+            OpenPage CMS
+        </h1>
+
+        <p id="pageDescription">
+            Welcome to our official page.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ========= Timeline Start ========= -->
+
+<main class="timeline">
+
+    <!-- Left Sidebar -->
+    <aside class="left-sidebar">
+
+        <div class="card">
+            <h3>About</h3>
+            <p id="aboutText">
+                Welcome to our official page.
+            </p>
+        </div>
+
+    </aside>
+
+    <!-- Main Posts -->
+    <section class="feed">
+
+        <!-- Loading -->
+        <div id="loading" class="loading">
+
+            Loading posts...
+
+        </div>
+
+        <!-- No Post -->
+        <div id="noPost" class="no-post" style="display:none;">
+
+            No posts available.
+
+        </div>
+
+        <!-- Posts -->
+        <div id="postsContainer">
+          
+        </div>
+
+    </section>
+
+    <!-- Right Sidebar -->
+    <aside class="right-sidebar">
+
+        <div class="card">
+
+            <h3>Latest Updates</h3>
+
+            <p>
+                New posts will appear here automatically.
+            </p>
+
+        </div>
+
+    </aside>
+
+</main>
+
+<!-- ========= Timeline End ========= -->
+
+<!-- Floating Button -->
+
+<button id="topBtn">
+
+    ↑
+
+</button>
+
+<!-- Footer -->
+
+<footer>
+
+    <p>
+
+        © 2026 OpenPage CMS
+
+    </p>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="app.js"></script>
+</body>
+
+</html>

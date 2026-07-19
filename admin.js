@@ -1,4 +1,3 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbxryOZ1SNnR4c7omlzX8gvq0-xychyY8B0r8fbl0kFxbiEOVXA6F0zENvjhIX_W6C7J/exec";
 const PASSWORD = "123456";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -19,32 +18,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    uploadBtn.addEventListener("click", async () => {
-      alert("Publish button clicked");
-
-        const title = document.getElementById("postTitle").value.trim();
-        const content = document.getElementById("postContent").value.trim();
-        const type = document.getElementById("postType").value;
-
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                title: title,
-                content: content,
-                media: "",
-                type: type
-            })
-        });
-
-        const result = await response.text();
-        alert(result);
-
-        document.getElementById("postTitle").value = "";
-        document.getElementById("postContent").value = "";
-
-    });
+    uploadBtn.addEventListener("click", publishPost);
 
 });
+
+async function publishPost() {
+
+    const title = document.getElementById("postTitle").value.trim();
+    const content = document.getElementById("postContent").value.trim();
+    const type = document.getElementById("postType").value;
+
+    if (!title || !content) {
+        alert("Please enter title and content.");
+        return;
+    }
+
+    const { error } = await db.from("posts")
+        .insert([
+            {
+                title: title,
+                content: content,
+                type: type,
+                media: ""
+            }
+        ]);
+
+    if (error) {
+        console.error(error);
+        alert("Publish failed!");
+        return;
+    }
+
+    alert("Post published successfully!");
+
+    document.getElementById("postTitle").value = "";
+    document.getElementById("postContent").value = "";
+}

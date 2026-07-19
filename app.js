@@ -1,18 +1,12 @@
-const API_URL =
-"https://script.google.com/macros/s/AKfycbxryOZ1SNnR4c7omlzX8gvq0-xychyY8B0r8fbl0kFxbiEOVXA6F0zENvjhIX_W6C7J/exec";
-
 let allPosts = [];
 
 document.addEventListener("DOMContentLoaded", () => {
-
     loadPosts();
 
     const searchInput = document.getElementById("searchInput");
 
     if (searchInput) {
-
         searchInput.addEventListener("input", () => {
-
             const keyword = searchInput.value.toLowerCase();
 
             const filtered = allPosts.filter(post =>
@@ -21,11 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             renderPosts(filtered);
-
         });
-
     }
-
 });
 
 async function loadPosts() {
@@ -34,9 +25,13 @@ async function loadPosts() {
 
     try {
 
-        const response = await fetch(API_URL);
+        const { data, error } = await db.from("posts")
+            .select("*")
+            .order("created_at", { ascending: false });
 
-        allPosts = await response.json();
+        if (error) throw error;
+
+        allPosts = data || [];
 
         renderPosts(allPosts);
 
@@ -45,14 +40,12 @@ async function loadPosts() {
         console.error(err);
 
         if (loading) {
-
             loading.innerHTML = "Failed to load posts.";
-
         }
-
     }
+}
 
-}function renderPosts(posts) {
+function renderPosts(posts) {
 
     const container = document.getElementById("postsContainer");
     const loading = document.getElementById("loading");
@@ -71,7 +64,7 @@ async function loadPosts() {
 
     if (noPost) noPost.style.display = "none";
 
-    posts.reverse().forEach(post => {
+    posts.forEach(post => {
 
         let mediaHTML = "";
 
