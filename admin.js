@@ -1,100 +1,64 @@
-const PASSWORD = "123456";
+// ======================================
+// OpenPage CMS V5.0
+// admin.js
+// ======================================
 
-document.addEventListener("DOMContentLoaded", () => {
+// Default Admin Credentials (First Time Only)
+if (!localStorage.getItem("adminUsername")) {
+    localStorage.setItem("adminUsername", "admin");
+}
 
-    const loginBtn = document.getElementById("loginBtn");
-    const uploadBtn = document.getElementById("uploadBtn");
+if (!localStorage.getItem("adminPassword")) {
+    localStorage.setItem("adminPassword", "admin123");
+}
 
-    loginBtn.addEventListener("click", () => {
+// Already Logged In?
+if (localStorage.getItem("adminLoggedIn") === "true") {
+    window.location.href = "dashboard.html";
+}
 
-        const pass = document.getElementById("adminPassword").value;
+// Login Button
+document.getElementById("loginBtn").addEventListener("click", loginAdmin);
 
-        if (pass === PASSWORD) {
-            document.getElementById("loginBox").style.display = "none";
-            document.getElementById("adminPanel").style.display = "block";
-          loadAdminPosts();
-        } else {
-            document.getElementById("loginMsg").textContent = "Wrong Password";
-        }
-
-    });
-
-    uploadBtn.addEventListener("click", publishPost);
-
+// Enter Key Support
+document.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+        loginAdmin();
+    }
 });
 
-async function publishPost() {
+function loginAdmin() {
 
-    const title = document.getElementById("postTitle").value.trim();
-    const content = document.getElementById("postContent").value.trim();
-    const type = document.getElementById("postType").value;
+    const username = document
+        .getElementById("adminUsername")
+        .value
+        .trim();
 
-    if (!title || !content) {
-        alert("Please enter title and content.");
-        return;
+    const password = document
+        .getElementById("adminPassword")
+        .value
+        .trim();
+
+    const savedUsername = localStorage.getItem("adminUsername");
+    const savedPassword = localStorage.getItem("adminPassword");
+
+    const message = document.getElementById("loginMessage");
+
+    if (username === savedUsername && password === savedPassword) {
+
+        localStorage.setItem("adminLoggedIn", "true");
+
+        message.style.color = "green";
+        message.textContent = "Login Successful...";
+
+        setTimeout(() => {
+            window.location.href = "dashboard.html";
+        }, 800);
+
+    } else {
+
+        message.style.color = "red";
+        message.textContent = "Invalid Username or Password";
+
     }
-
-    const { error } = await db.from("posts")
-        .insert([
-            {
-                title: title,
-                content: content,
-                type: type,
-                media: ""
-            }
-        ]);
-
-    if (error) {
-        console.error(error);
-        alert("Publish failed!");
-        return;
-    }
-
-    alert("Post published successfully!");
-
-    document.getElementById("postTitle").value = "";
-    document.getElementById("postContent").value = "";
-  loadAdminPosts();
 }
-async function loadAdminPosts() {
-  const { data, error } = await db
-    .from("posts")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  const postList = document.getElementById("postList");
-
-  if (!data || data.length === 0) {
-    postList.innerHTML = "No Posts";
-    return;
-  }
-
-  postList.innerHTML = "";
-
-  data.forEach(post => {
-    postList.innerHTML += `
-      <div class="card">
-        <h3>${post.title}</h3>
-        <p>${post.content}</p>
-      </div>
-    `;
-  });
-}
-db.channel("admin-posts")
-  .on(
-    "postgres_changes",
-    {
-      event: "*",
-      schema: "public",
-      table: "posts"
-    },
-    () => {
-      loadAdminPosts();
-    }
-  )
-  .subscribe();

@@ -1,130 +1,86 @@
-let allPosts = [];
+// ======================================
+// OpenPage CMS V4.1 Stable
+// app.js
+// ======================================
 
 document.addEventListener("DOMContentLoaded", () => {
     loadPosts();
-
-    const searchInput = document.getElementById("searchInput");
-
-    if (searchInput) {
-        searchInput.addEventListener("input", () => {
-            const keyword = searchInput.value.toLowerCase();
-
-            const filtered = allPosts.filter(post =>
-                (post.title || "").toLowerCase().includes(keyword) ||
-                (post.content || "").toLowerCase().includes(keyword)
-            );
-
-            renderPosts(filtered);
-        });
-    }
 });
 
 async function loadPosts() {
 
-    const loading = document.getElementById("loading");
+    const container =
+        document.getElementById("postsContainer");
 
-    try {
+    container.innerHTML = "<p>Loading...</p>";
 
-        const { data, error } = await db.from("posts")
-            .select("*")
-            .order("created_at", { ascending: false });
+    const { data, error } = await db
+        .from("posts")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-        if (error) throw error;
+    if (error) {
 
-        allPosts = data || [];
+        container.innerHTML =
+            "<p>Failed to load posts.</p>";
 
-        renderPosts(allPosts);
+        console.error(error);
 
-    } catch (err) {
-
-        console.error(err);
-
-        if (loading) {
-            loading.innerHTML = "Failed to load posts.";
-        }
-    }
-}
-
-function renderPosts(posts) {
-
-    const container = document.getElementById("postsContainer");
-    const loading = document.getElementById("loading");
-    const noPost = document.getElementById("noPost");
-
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    if (loading) loading.style.display = "none";
-
-    if (!posts || posts.length === 0) {
-        if (noPost) noPost.style.display = "block";
         return;
     }
 
-    if (noPost) noPost.style.display = "none";
+    if (!data || data.length === 0) {
 
-    posts.forEach(post => {
+        container.innerHTML =
+            "<p>No posts available.</p>";
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    data.forEach(post => {
 
         let mediaHTML = "";
 
         if (post.type === "image" && post.media) {
-            mediaHTML = `<img src="${post.media}" class="post-image">`;
-        }
 
-        if (post.type === "video" && post.media) {
             mediaHTML = `
-                <video class="post-video" controls>
+                <img src="${post.media}" class="post-image" alt="${post.title}">
+            `;
+
+        } else if (post.type === "video" && post.media) {
+
+            mediaHTML = `
+                <video controls class="post-video">
                     <source src="${post.media}">
-                </video>`;
-        }
+                </video>
+            `;
 
-        if (post.type === "pdf" && post.media) {
+        } else if (post.type === "pdf" && post.media) {
+
             mediaHTML = `
-                <p>
-                    <a href="${post.media}" target="_blank">
-                        📄 Open PDF
-                    </a>
-                </p>`;
+                <a href="${post.media}" target="_blank">
+                    📄 View PDF
+                </a>
+            `;
         }
 
         container.innerHTML += `
-        <article class="post-card">
+            <div class="post-card">
 
-            <div class="post-header">
-                <img src="assets/logo.png" class="post-avatar">
-
-                <div>
-                    <h3>${post.title || ""}</h3>
-                    <small>${post.date || ""}</small>
-                </div>
-            </div>
-
-            <div class="post-content">
-                <p>${post.content || ""}</p>
                 ${mediaHTML}
-            </div>
 
-            <div class="post-footer">
-                <button>👍 Like</button>
-                <button>💬 Comment</button>
-                <button>📤 Share</button>
-            </div>
+                <h2>${post.title}</h2>
 
-        </article>`;
+                <p>${post.content}</p>
+
+                <small>
+                    ${new Date(post.created_at).toLocaleDateString()}
+                </small>
+
+            </div>
+        `;
     });
 
 }
-db.channel("public-posts")
-  .on(
-    "postgres_changes",
-    {
-      event: "*",
-      schema: "public",
-      table: "posts"
-    },
-    () => {
-      loadPosts();
-    }
-  )
-  .subscribe();
