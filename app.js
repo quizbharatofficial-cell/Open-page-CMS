@@ -115,3 +115,16 @@ function renderPosts(posts) {
     });
 
 }
+db.channel("public-posts")
+  .on(
+    "postgres_changes",
+    {
+      event: "*",
+      schema: "public",
+      table: "posts"
+    },
+    () => {
+      loadPosts();
+    }
+  )
+  .subscribe();

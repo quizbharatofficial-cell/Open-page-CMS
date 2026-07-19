@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (pass === PASSWORD) {
             document.getElementById("loginBox").style.display = "none";
             document.getElementById("adminPanel").style.display = "block";
+          loadAdminPosts();
         } else {
             document.getElementById("loginMsg").textContent = "Wrong Password";
         }
@@ -53,6 +54,7 @@ async function publishPost() {
 
     document.getElementById("postTitle").value = "";
     document.getElementById("postContent").value = "";
+  loadAdminPosts();
 }
 async function loadAdminPosts() {
   const { data, error } = await db
@@ -83,3 +85,16 @@ async function loadAdminPosts() {
     `;
   });
 }
+db.channel("admin-posts")
+  .on(
+    "postgres_changes",
+    {
+      event: "*",
+      schema: "public",
+      table: "posts"
+    },
+    () => {
+      loadAdminPosts();
+    }
+  )
+  .subscribe();
