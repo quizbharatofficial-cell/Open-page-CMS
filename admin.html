@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>OpenPage CMS - Admin</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+
+<div class="logo">
+OpenPage CMS
+</div>
+
+</header>
+
+<div class="admin-container">
+
+<!-- Login -->
+
+<div id="loginBox" class="card">
+
+<h2>Admin Login</h2>
+
+<input type="password"
+id="adminPassword"
+placeholder="Enter Password">
+
+<button id="loginBtn">
+Login
+</button>
+
+<p id="loginMsg"></p>
+
+</div>
+
+<!-- Dashboard -->
+
+<div id="adminPanel"
+style="display:none;">
+
+<div class="card">
+
+<h2>Create New Post</h2>
+
+<input
+type="text"
+id="postTitle"
+placeholder="Post Title">
+
+<textarea
+id="postContent"
+placeholder="Write your post..."
+rows="6"></textarea>
+
+<select id="postType">
+
+<option value="text">
+Text
+</option>
+
+<option value="image">
+Image
+</option>
+
+<option value="video">
+Video
+</option>
+
+<option value="pdf">
+PDF
+</option>
+
+</select>
+
+<input
+type="file"
+id="mediaFile">
+
+<button id="uploadBtn">
+
+Publish Post
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>Published Posts</h2>
+
+<div id="postList">
+
+No Posts
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="admin.js"></script>
+</body>
+
+</html>
