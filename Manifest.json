@@ -1,0 +1,25 @@
+{
+  "name": "OpenPage CMS",
+  "short_name": "OpenPage",
+  "description": "Offline First OpenPage CMS",
+  "start_url": "./login.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+"icons": [
+  {
+    "src": "assets/logo.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "assets/cover.jpg",
+    "sizes": "512x512",
+    "type": "image/jpeg"
+  }
+]
+    }
+  ]
+}

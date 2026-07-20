@@ -2,7 +2,8 @@
    OpenPage CMS V5.1
    Media Library
 ========================================== */
-
+const offlineImages =
+JSON.parse(localStorage.getItem("offlineImages") || "[]");
 document.addEventListener("DOMContentLoaded", async () => {
 
     await requireLogin();
@@ -31,6 +32,27 @@ async function uploadImage() {
     }
 
     const file = input.files[0];
+  if (!navigator.onLine) {
+
+    offlineImages.push({
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        date: Date.now()
+    });
+
+    localStorage.setItem(
+        "offlineImages",
+        JSON.stringify(offlineImages)
+    );
+
+    message.style.color = "orange";
+    message.innerText = "Image queued for upload.";
+
+    input.value = "";
+
+    return;
+  }
     const fileName = Date.now() + "-" + file.name;
 
     const { error } = await db.storage
@@ -125,3 +147,8 @@ async function deleteImage(fileName) {
     loadImages();
 
 }
+window.addEventListener("online", () => {
+
+    console.log("Sync pending images...");
+
+});

@@ -180,3 +180,12 @@ document
 // ==========================================
 
 setInterval(loadDashboard, 30000);
+window.addEventListener("online", async () => {
+    console.log("Internet Connected");
+
+    loadDashboard();
+});
+
+window.addEventListener("offline", () => {
+    console.log("Offline Mode");
+});

@@ -9,8 +9,7 @@ const password = document.getElementById("password");
 const message = document.getElementById("message");
 const loginBtn = document.getElementById("loginBtn");
 const togglePassword = document.getElementById("togglePassword");
-const forgotPassword = document.getElementById("forgotPassword");
-
+const forgotPasswordLink = document.getElementById("forgotPassword");
 // Auto Login Check
 (async () => {
 
@@ -77,16 +76,15 @@ togglePassword.addEventListener("click", () => {
 });
 
 // Forgot Password
-forgotPassword.addEventListener("click", async (e) => {
+const forgotPasswordLink = document.getElementById("forgotPassword");
+
+forgotPasswordLink.addEventListener("click", async (e) => {
 
     e.preventDefault();
 
-    if (!email.value) {
-
+    if (!email.value.trim()) {
         alert("Enter your email first.");
-
         return;
-
     }
 
     try {
@@ -102,7 +100,6 @@ forgotPassword.addEventListener("click", async (e) => {
     }
 
 });
-
 // Enter Key Support
 document.addEventListener("keydown", (e) => {
 

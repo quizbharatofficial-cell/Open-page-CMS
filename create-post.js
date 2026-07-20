@@ -4,6 +4,9 @@
 // ==========================================
 
 // Login Protection
+// Offline Queue
+const offlinePosts =
+JSON.parse(localStorage.getItem("offlinePosts") || "[]");
 (async () => {
     const user = await requireLogin();
     if (!user) return;
@@ -94,6 +97,30 @@ async function uploadImage(file) {
 form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
+  if (!navigator.onLine) {
+
+    offlinePosts.push({
+        title: title.value,
+        slug: slug.value,
+        content: quill.root.innerHTML,
+        category: category.value,
+        tags: tags.value,
+        status: status.value,
+        created_at: Date.now()
+    });
+
+    localStorage.setItem(
+        "offlinePosts",
+        JSON.stringify(offlinePosts)
+    );
+
+    alert("Post saved offline.");
+
+    form.reset();
+    quill.setText("");
+
+    return;
+  }
 
     try {
 
@@ -154,4 +181,7 @@ form.addEventListener("submit", async (e) => {
 
     }
 
+});
+window.addEventListener("online", () => {
+    console.log("Sync pending posts...");
 });
