@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Edit Post | OpenPage CMS</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<aside class="sidebar">
+
+<h2>OpenPage CMS</h2>
+
+<nav>
+
+<a href="dashboard.html">🏠 Dashboard</a>
+
+<a href="create-post.html">📝 Create Post</a>
+
+<a href="posts.html">📄 All Posts</a>
+
+<a href="media.html">🖼 Media</a>
+
+<a href="analytics.html">📊 Analytics</a>
+
+<a href="settings.html">⚙ Settings</a>
+
+<a href="profile.html">👤 Profile</a>
+
+</nav>
+
+<button id="logoutBtn" class="btn">
+Logout
+</button>
+
+</aside>
+
+<main class="main">
+
+<h1>Edit Post</h1>
+
+<form id="editPostForm">
+
+<label>Title</label>
+<input type="text" id="title" required>
+
+<label>Slug</label>
+<input type="text" id="slug">
+
+<label>Category</label>
+<input type="text" id="category">
+
+<label>Tags</label>
+<input type="text" id="tags">
+
+<label>Featured Image</label>
+<input type="file" id="featuredImage" accept="image/*">
+
+<img id="previewImage"
+style="display:none;max-width:250px;margin-top:10px;">
+
+<label>Content</label>
+
+<div id="editor"></div>
+
+<label>Status</label>
+
+<select id="status">
+
+<option value="Draft">Draft</option>
+
+<option value="Published">Published</option>
+
+</select>
+
+<label>
+
+<input type="checkbox" id="featured">
+
+Featured Post
+
+</label>
+
+<label>SEO Title</label>
+
+<input type="text" id="seoTitle">
+
+<label>SEO Description</label>
+
+<textarea id="seoDescription" rows="4"></textarea>
+
+<button type="submit" class="btn primary">
+
+Update Post
+
+</button>
+
+</form>
+
+</main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<script src="supabase.js"></script>
+
+<script src="auth.js"></script>
+
+<script src="edit-post.js"></script>
+
+</body>
+
+</html>

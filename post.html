@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>All Posts | OpenPage CMS</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<aside class="sidebar">
+
+<h2>OpenPage CMS</h2>
+
+<nav>
+
+<a href="dashboard.html">🏠 Dashboard</a>
+
+<a href="create-post.html">📝 Create Post</a>
+
+<a href="posts.html">📄 All Posts</a>
+
+<a href="media.html">🖼 Media</a>
+
+<a href="analytics.html">📊 Analytics</a>
+
+<a href="settings.html">⚙ Settings</a>
+
+<a href="profile.html">👤 Profile</a>
+
+</nav>
+
+<button id="logoutBtn" class="btn">
+Logout
+</button>
+
+</aside>
+
+<main class="main">
+
+<div class="topbar">
+
+<h1>All Posts</h1>
+
+<a href="create-post.html" class="btn primary">
++ New Post
+</a>
+
+</div>
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search posts...">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Image</th>
+
+<th>Title</th>
+
+<th>Category</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="postsTable">
+
+<tr>
+
+<td colspan="6">
+Loading...
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase.js"></script>
+
+<script src="auth.js"></script>
+
+<script src="posts.js"></script>
+
+</body>
+
+</html>

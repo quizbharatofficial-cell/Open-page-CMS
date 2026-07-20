@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Library</title>
+
+    <link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="auth.js"></script>
+  
+    <script src="media.js" defer></script>
+</head>
+
+<body>
+
+<header>
+    <h1>Media Library</h1>
+
+    <button onclick="location.href='dashboard.html'">
+        Dashboard
+    </button>
+
+    <button id="logoutBtn">
+        Logout
+    </button>
+</header>
+
+<main>
+
+    <input
+        type="file"
+        id="mediaFile"
+        accept="image/*">
+
+    <button id="uploadBtn">
+        Upload Image
+    </button>
+
+    <hr>
+
+    <div id="mediaGrid"></div>
+
+    <p id="message"></p>
+
+</main>
+
+</body>
+</html>

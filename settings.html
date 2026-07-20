@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Settings</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="auth.js"></script>
+  
+<script src="settings.js" defer></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Website Settings</h1>
+
+<button onclick="location.href='dashboard.html'">
+Dashboard
+</button>
+
+<button id="logoutBtn">
+Logout
+</button>
+
+</header>
+
+<main>
+
+<label>Website Name</label>
+<input
+type="text"
+id="siteName"
+placeholder="OpenPage CMS">
+
+<label>Website Description</label>
+<textarea
+id="siteDescription"
+rows="4"
+placeholder="Website description"></textarea>
+
+<label>Admin Email</label>
+<input
+type="email"
+id="adminEmail">
+
+<label>Logo URL</label>
+<input
+type="text"
+id="logoUrl"
+placeholder="https://...">
+
+<button id="saveSettingsBtn">
+Save Settings
+</button>
+
+<p id="message"></p>
+
+</main>
+
+</body>
+</html>

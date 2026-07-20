@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Analytics</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="auth.js"></script>
+  
+<script src="analytics.js" defer></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Analytics Dashboard</h1>
+
+<button onclick="location.href='dashboard.html'">
+Dashboard
+</button>
+
+<button id="logoutBtn">
+Logout
+</button>
+
+</header>
+
+<main>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Posts</h3>
+<h2 id="totalPosts">0</h2>
+</div>
+
+<div class="card">
+<h3>Published</h3>
+<h2 id="publishedPosts">0</h2>
+</div>
+
+<div class="card">
+<h3>Drafts</h3>
+<h2 id="draftPosts">0</h2>
+</div>
+
+<div class="card">
+<h3>Total Images</h3>
+<h2 id="totalImages">0</h2>
+</div>
+
+<div class="card">
+<h3>Current User</h3>
+<h2 id="currentUser">-</h2>
+</div>
+
+</div>
+
+</main>
+
+</body>
+</html>
